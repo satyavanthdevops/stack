@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stack</title>
+    <style>
+        #stack-body {
+            border: 1px solid black;
+            width: 200px;
+            display: flex;
+            flex-direction: column-reverse; /* Add this line */
+            border-top: 0px;
+        }
+        .stack-body-content-item {
+            border: 1px solid black;
+            padding: 0px;
+            text-align: center;
+        }
+
+        #push-button, #pop-button {
+            margin-top: 10px;
+        }
+
+        #push-button, #pop-button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #push-button {
+            background-color: green;
+            color: white;
+        }
+
+        #pop-button {
+            background-color: red;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="stack-body"></div>
+    <button id="push-button">Push</button>
+    <button id="pop-button">Pop</button>
+    <script>
+        var maxItems;
+
+        window.onload = function() {
+            maxItems = prompt("Enter the maximum number of items in the stack:");
+            if (maxItems) {
+                maxItems = parseInt(maxItems);
+                if (isNaN(maxItems) || maxItems <= 0) {
+                    alert("Invalid input. Please enter a positive number.");
+                    maxItems = 0; 
+                }
+            } else {
+                maxItems = 0; 
+            }
+
+            var stackBody = document.getElementById('stack-body');
+            stackBody.style.height = (maxItems * 50 + maxItems + 1) + 'px';
+        }
+
+        document.getElementById('push-button').addEventListener('click', function() {
+            var stackBody = document.getElementById('stack-body');
+            var itemCount = stackBody.getElementsByClassName('stack-body-content-item').length;
+            if (itemCount < maxItems) {
+                var data = prompt("Enter the data to be added to the stack:");
+                if (data) {
+                    var newDiv = document.createElement('div');
+                    newDiv.className = "stack-body-content-item";
+                    newDiv.innerHTML = `<p>${data}</p>`;
+                    stackBody.appendChild(newDiv);
+                }
+            } else {
+                alert("The stack is full.");
+            }
+        });
+
+        document.getElementById('pop-button').addEventListener('click', function() {
+            var stackBody = document.getElementById('stack-body');
+            if (stackBody.lastChild) {
+                stackBody.removeChild(stackBody.lastChild);
+            } else {
+                alert("The stack is empty.");
+            }
+        });
+    </script>
+</body>
+</html>
